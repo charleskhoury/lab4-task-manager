@@ -1,0 +1,16 @@
+name: GitHub Projects Automation
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  move-issue-to-done:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    steps:
+      - name: Confirm merge and report
+        run: |
+          echo "PR #${{ github.event.pull_request.number }} was merged by ${{ github.actor }}."
+          echo "Issues linked with 'Closes #N' are auto-closed by GitHub on merge."
+          echo "The Project's built-in workflow then moves the closed item to 'Done'."
